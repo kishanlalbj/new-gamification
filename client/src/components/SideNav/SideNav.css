@@ -1,0 +1,22 @@
+.sidenav {
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  min-height: 100vh;
+}
+
+.navitems {
+  padding: 10px;
+}
+
+.navitems:hover {
+  cursor: pointer;
+  background-color: rgb(192, 192, 192);
+}
+
+.flex-column > a {
+  color: black;
+}
+
+.flex-column > a:hover {
+  text-decoration: none;
+  color: black;
+}
