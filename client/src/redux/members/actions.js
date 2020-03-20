@@ -1,20 +1,7 @@
 import { MEMBER_ACTIONS } from "./types";
 
 export const getMembersLeaderboard = () => async dispatch => {
-  const members = [
-    {
-      teamMemberName: "Pallavi",
-      score: 40
-    },
-    {
-      teamMemberName: "Kishanlal B J",
-      score: 39
-    },
-    {
-      teamMemberName: "Ashwin Kumar",
-      score: 21
-    }
-  ];
+  const members = [];
 
   let response = await members;
 
@@ -27,6 +14,23 @@ export const getMembersLeaderboard = () => async dispatch => {
     dispatch({
       type: MEMBER_ACTIONS.SET_MESSAGE,
       payload: "No Members Found"
+    });
+  }
+};
+
+export const getMember = id => async dispatch => {
+  try {
+    let response = await fetch(`/api/members/${id}`);
+    let data = await response.json();
+
+    dispatch({
+      type: MEMBER_ACTIONS.GET_MEMBER,
+      payload: data
+    });
+  } catch (error) {
+    dispatch({
+      type: MEMBER_ACTIONS.SET_MESSAGE,
+      payload: "Error Fetching Member"
     });
   }
 };

@@ -8,6 +8,7 @@ import ToolsList from "../../components/ToolsList/ToolsList";
 import RuleTable from "../../components/RuleTable/RuleTable";
 import MetricList from "../../components/MetricList/MetricList";
 import TeamMembersList from "../../components/TeamMembersList/TeamMembersList";
+import moment from "moment";
 
 class Team extends Component {
   state = {
@@ -43,7 +44,9 @@ class Team extends Component {
               <Col md="5">
                 <Avatar
                   name={this.props.team.teamName}
-                  createdOn={this.props.team.createdOn}
+                  tagline={moment(this.props.team.createdOn).format(
+                    "MMM DD, YYYY"
+                  )}
                   score={this.props.team.score}
                 ></Avatar>
               </Col>

@@ -84,14 +84,19 @@ class NewRule extends Component {
           <Form.Row>
             <Col>
               <Form.Group controlId="validateRuleDescription">
-                <Form.Label>Rule Description</Form.Label>
+                <Form.Label>Rule Description*</Form.Label>
 
                 <Form.Control
+                  required
                   as={"textarea"}
                   name={"ruleDescription"}
                   value={this.state.ruleDescription}
                   onChange={this.handleChange}
                 />
+
+                <Form.Control.Feedback type="invalid">
+                  Please provide rule description
+                </Form.Control.Feedback>
               </Form.Group>
             </Col>
           </Form.Row>

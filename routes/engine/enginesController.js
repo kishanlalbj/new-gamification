@@ -18,20 +18,20 @@ const calculateMemberScore = async (successCB, errorCB) => {
     if (rules.length !== 0) {
       for (let j = 0; j < rules.length; j++) {
         for (let k = 0; k < members[i].metrics.length; k++) {
-          console.log(
-            rules[j].ruleName,
-            "----",
-            members[i].teamMemberName,
-            "----",
-            members[i].metrics[k].toolName,
-            "-----",
-            rules[j].threshold,
-            "-------",
-            members[i].metrics[k].value,
-            "-----",
-            members[i].appliedRules,
-            "------"
-          );
+          // console.log(
+          //   rules[j].ruleName,
+          //   "----",
+          //   members[i].teamMemberName,
+          //   "----",
+          //   members[i].metrics[k].toolName,
+          //   "-----",
+          //   rules[j].threshold,
+          //   "-------",
+          //   members[i].metrics[k].value,
+          //   "-----",
+          //   members[i].appliedRules,
+          //   "------"
+          // );
 
           if (
             members[i].metrics[k].toolName.toLowerCase() ===
@@ -46,7 +46,7 @@ const calculateMemberScore = async (successCB, errorCB) => {
                 obj.ruleName = rules[j].ruleName;
                 obj.reward = rules[j].reward;
                 obj.toolName = rules[j].toolName;
-                members[i].appliedRules.push(obj);
+                members[i].appliedRules.push(rules[j]);
 
                 members[i].score = members[i].score + rules[j].reward;
 
@@ -72,7 +72,7 @@ const calculateMemberScore = async (successCB, errorCB) => {
                 obj.reward = rules[j].reward;
                 obj.toolName = rules[j].toolName;
 
-                members[i].appliedRules.push(obj);
+                members[i].appliedRules.push(rules[j]);
 
                 members[i].score = members[i].score + rules[j].reward;
 
@@ -85,15 +85,8 @@ const calculateMemberScore = async (successCB, errorCB) => {
             }
 
             if (rules[j].operator === "eq") {
-              console.log("Got Operator");
               if (members[i].metrics[k].value === rules[j].threshold) {
-                console.log("Checking Equality");
-                let obj = {};
-                obj.ruleId = rules[j]._id;
-                obj.ruleName = rules[j].ruleName;
-                obj.reward = rules[j].reward;
-                obj.toolName = rules[j].toolName;
-                members[i].appliedRules.push(obj);
+                members[i].appliedRules.push(rules[j]);
                 members[i].score = members[i].score + rules[j].reward;
 
                 updateMemberscore(
@@ -102,12 +95,17 @@ const calculateMemberScore = async (successCB, errorCB) => {
                   members[i].appliedRules
                 );
               }
+            } else {
+              updateMemberscore(
+                members[i]._id,
+                members[i].score,
+                members[i].appliedRules
+              );
             }
           }
         }
       }
     } else {
-      console.log("Gt in else");
       updateMemberscore(
         members[i]._id,
         members[i].score,
@@ -120,7 +118,8 @@ const calculateMemberScore = async (successCB, errorCB) => {
 
 const updateTeamScore = async (teamid, score, appliedRules) => {
   try {
-    let rule = await Team.findByIdAndUpdate(teamid, {
+    console.log("UPDATNG TEAM SCORE", score, appliedRules);
+    await Team.findByIdAndUpdate(teamid, {
       $set: {
         score,
         appliedRules
@@ -153,6 +152,7 @@ const updateMemberscore = async (memberid, score, appliedRules) => {
 // );
 const calculateTeamScore = async (successCB, errorCB) => {
   try {
+    console.log("Calculating Team SCore");
     let teams = await Team.find().select({
       teamName: 1,
       metrics: 1,
@@ -180,7 +180,7 @@ const calculateTeamScore = async (successCB, errorCB) => {
                   obj.ruleId = rules[j]._id;
                   obj.toolName = rules[j].toolName;
                   obj.reward = rules[j].reward;
-                  teams[i].appliedRules.push(obj);
+                  teams[i].appliedRules.push(rules[j]);
 
                   teams[i].score = teams[i].score + rules[j].reward;
 
@@ -205,7 +205,7 @@ const calculateTeamScore = async (successCB, errorCB) => {
                   obj.toolName = rules[j].toolName;
                   obj.ruleId = rules[j]._id;
                   obj.reward = rules[j].reward;
-                  teams[i].appliedRules.push(obj);
+                  teams[i].appliedRules.push(rules[j]);
 
                   teams[i].score = teams[i].score + rules[j].reward;
 
@@ -230,7 +230,7 @@ const calculateTeamScore = async (successCB, errorCB) => {
                   obj.toolName = rules[j].toolName;
                   obj.ruleId = rules[j]._id;
                   obj.reward = rules[j].reward;
-                  teams[i].appliedRules.push(obj);
+                  teams[i].appliedRules.push(rules[j]);
 
                   teams[i].score = teams[i].score + rules[j].reward;
 
@@ -249,6 +249,11 @@ const calculateTeamScore = async (successCB, errorCB) => {
               }
             } else {
               console.log("ElSE");
+              updateTeamScore(
+                teams[i]._id,
+                teams[i].score,
+                teams[i].appliedRules
+              );
             }
           }
         }

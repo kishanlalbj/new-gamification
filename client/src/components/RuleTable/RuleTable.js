@@ -13,7 +13,6 @@ const RuleTable = props => {
           <tr>
             <th>S.No</th>
             <th>Rule Name</th>
-            <th>Rule Type</th>
             <th>Tool Name</th>
             <th>Metric Name</th>
             <th>Operator</th>
@@ -23,26 +22,33 @@ const RuleTable = props => {
         </thead>
 
         <tbody>
-          {props.rules.map((rule, index) => (
-            <tr key={rule._id}>
-              <td>{index + 1}</td>
-              <td>{rule.ruleName}</td>
-              <td>{rule.ruleType}</td>
-              <td>{rule.toolName}</td>
-              <td>{rule.metricName}</td>
-              <td>{rule.operator}</td>
-              <td>{rule.threshold}</td>
-              <td>
-                {rule.reward}
-                &nbsp;
-                <FontAwesomeIcon
-                  className="icon-btn"
-                  icon={faCoins}
-                  style={{ color: "#e0aa04" }}
-                />
+          {props.rules.length !== 0 ? (
+            props.rules.map((rule, index) => (
+              <tr key={rule._id}>
+                <td>{index + 1}</td>
+                <td>{rule.ruleName}</td>
+                <td>{rule.toolName}</td>
+                <td>{rule.metricName}</td>
+                <td>{rule.operator}</td>
+                <td>{rule.threshold}</td>
+                <td>
+                  {rule.reward}
+                  &nbsp;
+                  <FontAwesomeIcon
+                    className="icon-btn"
+                    icon={faCoins}
+                    style={{ color: "#e0aa04" }}
+                  />
+                </td>
+              </tr>
+            ))
+          ) : (
+            <tr>
+              <td colSpan="8" className="rule-message">
+                No Rules
               </td>
             </tr>
-          ))}
+          )}
         </tbody>
       </Table>
     </div>

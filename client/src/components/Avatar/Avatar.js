@@ -3,7 +3,6 @@ import "./Avatar.css";
 import avatar from "../../assets/avatar.png";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCoins, faCrown } from "@fortawesome/free-solid-svg-icons";
-import moment from "moment";
 
 const Avatar = props => {
   return (
@@ -31,9 +30,7 @@ const Avatar = props => {
           ) : null}
         </h4>
 
-        <span className="created-on">
-          {moment(props.createdOn).format("MMM DD, YYYY")}
-        </span>
+        <span className="created-on">{props.tagline}</span>
 
         <span>
           {props.score} <FontAwesomeIcon icon={faCoins} color="#FFD700" />

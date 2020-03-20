@@ -27,6 +27,15 @@ const getTeamMembers = async (teamName, successCB, errorCB) => {
   }
 };
 
+const getTeamMember = async (id, successCB, errorCB) => {
+  try {
+    let response = await Member.findById(id);
+    successCB(response);
+  } catch (error) {
+    errorCB(error);
+  }
+};
+
 const teamMemberCount = async (teamid, successCB, errorCB) => {
   try {
     let response = await Member.find({ teamID: teamid }).count();
@@ -39,5 +48,6 @@ const teamMemberCount = async (teamid, successCB, errorCB) => {
 module.exports = {
   addMembers,
   teamMemberCount,
-  getTeamMembers
+  getTeamMembers,
+  getTeamMember
 };

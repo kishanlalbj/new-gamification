@@ -20,26 +20,7 @@ const TeamSchema = new Schema({
     type: Number,
     default: 0
   },
-  appliedRules: [
-    {
-      ruleId: {
-        type: Schema.Types.ObjectId,
-        ref: "rules"
-      },
-      ruleName: {
-        type: String
-      },
-      metricName: {
-        type: String
-      },
-      toolName: {
-        type: String
-      },
-      reward: {
-        type: Number
-      }
-    }
-  ],
+  appliedRules: [],
   metrics: [
     {
       toolName: {

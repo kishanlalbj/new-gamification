@@ -10,6 +10,7 @@ import Footer from "./components/Footer/Footer";
 import PageNotFound from "./components/PageNotFound/PageNotFound";
 import NewRule from "./pages/NewRule/NewRule";
 import Team from "./pages/Team/Team";
+import Member from "./pages/Member/Member";
 
 class App extends Component {
   render() {
@@ -31,10 +32,10 @@ class App extends Component {
                 </Route>
 
                 <Route exact path="/home" component={Home}></Route>
-
                 <Route exact path="/rules" component={Rules}></Route>
                 <Route exact path="/rules/new" component={NewRule}></Route>
                 <Route exact path="/teams/:id" component={Team}></Route>
+                <Route exact path="/member/:id" component={Member}></Route>
                 <Route component={PageNotFound}></Route>
               </Switch>
             </Container>
