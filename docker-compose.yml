@@ -1,0 +1,12 @@
+version: "3"
+
+services:
+  gamification:
+    image: kishanlalbj/gamification
+    build: .
+    environment:
+      - NODE_ENV=production
+    volumes:
+      - .:/app
+    ports:
+      - 3000:3000

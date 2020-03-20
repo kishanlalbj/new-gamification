@@ -1,11 +1,13 @@
-FROM nodejs:alpine
+FROM node:12.16.1-alpine3.11
 
 WORKDIR /app/
 
 COPY . .
 
-RUN npm install && \
-    npm install --prefix client && \
-    npm run build
+COPY client/build .
+
+RUN npm install
+
+EXPOSE 3000
 
 CMD [ "npm", "start" ]

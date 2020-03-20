@@ -35,11 +35,11 @@ const deleteRule = async (ruleId, successCB, errorCB) => {
 const updateRule = async (ruleId, ruleData, successCB, errorCB) => {
   console.log(ruleId, ruleData);
   try {
-    await Rule.findOneAndUpdate(
-      {_id:ruleId},
-      ruleData,
-      { upsert: true, useFindAndModify: false }
-    )
+    await Rule.findByIdAndUpdate(ruleId, {
+      $set: {
+        ...ruleData
+      }
+    })
       .then(res => {
         console.log(res);
         successCB(true);

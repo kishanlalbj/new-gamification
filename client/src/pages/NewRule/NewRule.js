@@ -1,7 +1,8 @@
 import React, { Component } from "react";
 import { Form, Col, Button } from "react-bootstrap";
+import { Link } from "react-router-dom";
 import { connect } from "react-redux";
-import { addRule } from "../../redux/rules/actions";
+import { addRule, editRule, getRule } from "../../redux/rules/actions";
 
 class NewRule extends Component {
   state = {
@@ -16,7 +17,32 @@ class NewRule extends Component {
     reward: 0
   };
 
+  componentDidMount() {
+    const { id, mode } = this.props.match.params;
+    if (mode === "edit") this.props.getRule(id);
+  }
+
+  componentDidUpdate(prevProps) {
+    if (prevProps.rule !== this.props.rule) {
+      this.setState({ mode: "edit", ...this.props.rule });
+    }
+  }
+
+  componentWillUnmount() {
+    this.setState({
+      ruleName: "",
+      ruleType: "",
+      ruleDescription: "",
+      toolName: "",
+      metricName: "",
+      threshold: 0,
+      operator: "",
+      reward: 0
+    });
+  }
+
   handleSubmit = event => {
+    const { id, mode } = this.props.match.params;
     const form = event.currentTarget;
 
     if (form.checkValidity() === false) {
@@ -25,8 +51,16 @@ class NewRule extends Component {
       this.setState({ validated: true });
     } else {
       event.preventDefault();
-      this.props.addRule(this.state);
-      if (this.props.message === "") {
+
+      if (mode === "edit") {
+        console.log("EDIT JSON", this.state);
+        this.props.editRule(id, this.state);
+        this.props.history.push("/rules");
+      }
+
+      if (mode === "add") {
+        this.props.addRule(this.state);
+
         this.props.history.push("/rules");
       }
     }
@@ -70,7 +104,9 @@ class NewRule extends Component {
                   value={this.state.ruleType}
                   onChange={this.handleChange}
                 >
-                  <option value="">Select</option>
+                  <option value="" disabled hidden>
+                    Select
+                  </option>
                   <option value="TEAM">Team</option>
                   <option value="MEMBER">Member</option>
                 </Form.Control>
@@ -112,7 +148,9 @@ class NewRule extends Component {
                   value={this.state.toolName}
                   onChange={this.handleChange}
                 >
-                  <option value="">Select Tool</option>
+                  <option value="" disabled hidden>
+                    Select Tool
+                  </option>
                   <optgroup label="Source Control">
                     <option value="github">Github </option>
                     <option value="gitlab">Gitlab </option>
@@ -146,7 +184,10 @@ class NewRule extends Component {
                   value={this.state.metricName}
                   onChange={this.handleChange}
                 >
-                  <option value=""> Select</option>
+                  <option value="" disabled hidden>
+                    {" "}
+                    Select
+                  </option>
                   <optgroup label="Source Control">
                     <option value="total_commits"> total_commits </option>
                   </optgroup>
@@ -188,7 +229,9 @@ class NewRule extends Component {
                   value={this.state.operator}
                   onChange={this.handleChange}
                 >
-                  <option value="">Select</option>
+                  <option value="" disabled hidden>
+                    Select
+                  </option>
                   <option value="gt">Greater than </option>
                   <option value="lt">Lesser than </option>
                   <option value="eq">Equal to </option>
@@ -235,7 +278,9 @@ class NewRule extends Component {
 
           <Form.Row>
             <Col md="6">
-              <Button variant="secondary">Cancel</Button>
+              <Link to="/rules">
+                <Button variant="secondary">Cancel</Button>
+              </Link>
             </Col>
 
             <Col
@@ -256,11 +301,14 @@ class NewRule extends Component {
 }
 
 const mapStateToProps = state => ({
+  rule: state.rules.rule,
   message: state.teams.message
 });
 
 const mapDispatchToProps = dispatch => ({
-  addRule: rule => dispatch(addRule(rule))
+  addRule: rule => dispatch(addRule(rule)),
+  getRule: id => dispatch(getRule(id)),
+  editRule: (id, rule) => dispatch(editRule(id, rule))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(NewRule);

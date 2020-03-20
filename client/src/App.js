@@ -33,7 +33,12 @@ class App extends Component {
 
                 <Route exact path="/home" component={Home}></Route>
                 <Route exact path="/rules" component={Rules}></Route>
-                <Route exact path="/rules/new" component={NewRule}></Route>
+                <Route
+                  exact
+                  path="/rules/:mode/:id"
+                  component={NewRule}
+                ></Route>
+
                 <Route exact path="/teams/:id" component={Team}></Route>
                 <Route exact path="/member/:id" component={Member}></Route>
                 <Route component={PageNotFound}></Route>

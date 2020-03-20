@@ -31,19 +31,7 @@ const TeamMemberSchema = new Schema({
       }
     }
   ],
-  appliedRules: [
-    {
-      ruleName: {
-        type: String
-      },
-      toolName: {
-        type: String
-      },
-      reward: {
-        type: Number
-      }
-    }
-  ]
+  appliedRules: []
 });
 
 const TeamMember = mongoose.model("teammember", TeamMemberSchema);

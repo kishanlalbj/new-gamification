@@ -5,20 +5,26 @@ import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrash, faCoins } from "@fortawesome/free-solid-svg-icons";
-import { getAllRules, deleteRule } from "../../redux/rules/actions";
+import { getAllRules, deleteRule, filterRule } from "../../redux/rules/actions";
 
 class Rules extends Component {
   state = {
-    toggleModal: true
+    toggleModal: true,
+    filterType: "all"
   };
 
   componentDidMount() {
     this.props.getAllRules();
   }
 
+  componentDidUpdate(prevState) {
+    if (prevState.rules !== this.props.rules) {
+    }
+  }
+
   handleEdit = (e, ruleId) => {
     e.stopPropagation();
-    this.props.history.push(`/rules/${ruleId}`);
+    this.props.history.push(`/rules/edit/${ruleId}`);
   };
 
   handleDelete = (e, ruleId) => {
@@ -27,8 +33,18 @@ class Rules extends Component {
     this.props.deleteRule(ruleId);
   };
 
+  handleFilter = type => {
+    console.log(type);
+    this.props.filterRule(type);
+  };
+
+  handleChange = e => {
+    this.setState({ [e.target.name]: e.target.value }, () => {
+      this.handleFilter(this.state.filterType);
+    });
+  };
+
   render() {
-    console.log(this.props);
     return (
       <div>
         <div>
@@ -38,14 +54,22 @@ class Rules extends Component {
               display: "flex"
             }}
           >
-            <Form.Control as={"select"} placeholder="filter rules">
-              <option value="">Select</option>
+            <Form.Control
+              as={"select"}
+              name={"filterType"}
+              value={this.state.filterType}
+              placeholder="filter rules"
+              onChange={this.handleChange}
+            >
+              <option value="" disabled hidden>
+                Select
+              </option>
               <option value="all">All</option>
               <option value="team">Team</option>
               <option value="member">Member</option>
             </Form.Control>
             &nbsp;&nbsp;
-            <Link to="/rules/new">
+            <Link to="/rules/add/new">
               <Button variant="dark">New</Button>
             </Link>
           </div>
@@ -72,11 +96,11 @@ class Rules extends Component {
               </tr>
             </thead>
             <tbody>
-              {this.props.rules.length !== 0 ? (
-                this.props.rules.map((rule, index) => (
+              {this.props.search_result.length !== 0 ? (
+                this.props.search_result.map((rule, index) => (
                   <tr
                     key={rule._id}
-                    onClick={e => this.handleEdit(e, rule.ruleName)}
+                    onClick={e => this.handleEdit(e, rule._id)}
                   >
                     <td>{index + 1}</td>
                     <td>{rule.ruleName}</td>
@@ -120,12 +144,14 @@ class Rules extends Component {
 
 const mapStateToProps = state => ({
   rules: state.rules.rules,
+  search_result: state.rules.search_result,
   message: state.rules.message
 });
 
 const mapDispatchToProps = dispatch => ({
   getAllRules: () => dispatch(getAllRules()),
-  deleteRule: ruleId => dispatch(deleteRule(ruleId))
+  deleteRule: ruleId => dispatch(deleteRule(ruleId)),
+  filterRule: type => dispatch(filterRule(type))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Rules);

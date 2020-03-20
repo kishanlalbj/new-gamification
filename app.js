@@ -34,8 +34,8 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 
 app.use("/api/teams/", teamsRouter);
-app.use("/api/engine", enginesRouter);
-app.use("/api/rules", rulesRouter);
+app.use("/api/engine/", enginesRouter);
+app.use("/api/rules/", rulesRouter);
 app.use("/api/members/", membersRouter);
 app.use("/api/metrics/", metricsRouter);
 

@@ -71,7 +71,7 @@ router.delete("/delete/:id", (req, res) => {
 });
 
 router.put("/update/:id", (req, res) => {
-  console.log(req.body);
+  console.log("Req body", req.body);
   try {
     rulesController.updateRule(
       req.params.id,

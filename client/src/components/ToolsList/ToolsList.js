@@ -16,11 +16,6 @@ const ToolsList = props => {
             &nbsp;
           </span>
         ))}
-        <p className="chip">Bitbucket</p>
-        &nbsp;
-        <p className="chip">Bamboo</p>
-        &nbsp;
-        <p className="chip">Nexus</p>
       </div>
     </div>
   );
