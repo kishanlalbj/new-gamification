@@ -34,7 +34,7 @@ class Home extends Component {
     return (
       <div>
         <Row>
-          <Col md={6}>
+          <Col md={6} className="leaderboard">
             <h5>Team Leaderboard</h5>
             {this.props.teams.length !== 0 ? (
               <ParticipantList
@@ -47,7 +47,7 @@ class Home extends Component {
             )}
           </Col>
 
-          <Col md={6}>
+          <Col md={6} className="leaderboard">
             <h5>Member Leaderboard</h5>
             {this.props.members.length !== 0 ? (
               <ParticipantList

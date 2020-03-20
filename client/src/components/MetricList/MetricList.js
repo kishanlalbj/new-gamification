@@ -5,7 +5,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChartLine } from "@fortawesome/free-solid-svg-icons";
 
 const MetricList = props => (
-  <div>
+  <div className="metriclist">
     <h5>Metrics Collected</h5>
 
     <ListGroup>

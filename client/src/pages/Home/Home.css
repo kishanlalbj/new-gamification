@@ -3,3 +3,13 @@
   padding: 10px;
   color: white;
 }
+
+.leaderboard {
+  min-height: 90vh;
+  max-height: 90vh;
+  overflow-y: scroll;
+}
+
+.leaderboard::-webkit-scrollbar {
+  display: none;
+}

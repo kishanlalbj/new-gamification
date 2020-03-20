@@ -55,7 +55,7 @@ class Team extends Component {
                   toolSets={this.props.team.toolSets || []}
                 ></ToolsList>
               </Col>
-
+              &nbsp;
               <Col md="12">
                 <RuleTable rules={this.props.team.appliedRules || []} />
               </Col>
