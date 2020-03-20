@@ -5,10 +5,10 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChartLine } from "@fortawesome/free-solid-svg-icons";
 
 const MetricList = props => (
-  <div className="metriclist">
+  <div>
     <h5>Metrics Collected</h5>
 
-    <ListGroup>
+    <ListGroup className="metriclist">
       {props.metrics.length !== 0 ? (
         props.metrics.map((metric, index) => {
           return (

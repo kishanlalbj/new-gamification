@@ -1,5 +1,6 @@
 .metriclist::-webkit-scrollbar {
   display: none;
+  background-color: #f1f1f1;
 }
 
 .metriclist {

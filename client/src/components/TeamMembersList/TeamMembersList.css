@@ -1,5 +1,6 @@
 .team-members-list::-webkit-scrollbar {
   display: none;
+  color: #f1f1f1;
 }
 
 .team-members-list {
