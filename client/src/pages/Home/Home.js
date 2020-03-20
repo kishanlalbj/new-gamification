@@ -18,10 +18,7 @@ class Home extends Component {
     this.props.getMemberLeaderboard();
   }
 
-  navigateToTeam = id => {
-    console.log(id);
-    this.props.history.push(`/teams/${id}`);
-  };
+  navigateToTeam = id => this.props.history.push(`/teams/${id}`);
 
   navigateToMember = id => this.props.history.push(`/member/${id}`);
 

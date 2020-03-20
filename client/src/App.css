@@ -1,20 +1,5 @@
 .app {
   position: relative;
-  padding-top: 10px;
+  padding: 10px;
+  min-height: "90vh";
 }
-/* 
-.app::after {
-  content: "";
-  background-image: url(./assets/background-image.png);
-  background-repeat: no-repeat;
-  background-size: cover;
-  background-position: bottom;
-
-  opacity: 0.2;
-  top: 0;
-  left: 0;
-  bottom: 0;
-  right: 0;
-  position: absolute;
-  z-index: -1;
-} */

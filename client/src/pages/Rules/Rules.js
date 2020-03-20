@@ -1,10 +1,10 @@
 import React, { Component } from "react";
 import "./Rules.css";
-import { Button, Table, Modal, Form } from "react-bootstrap";
+import { Button, Table, Form } from "react-bootstrap";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faTrash, faEdit, faCoins } from "@fortawesome/free-solid-svg-icons";
+import { faTrash, faCoins } from "@fortawesome/free-solid-svg-icons";
 import { getAllRules, deleteRule } from "../../redux/rules/actions";
 
 class Rules extends Component {
@@ -32,14 +32,6 @@ class Rules extends Component {
     return (
       <div>
         <div>
-          <h5
-            style={{
-              float: "left"
-            }}
-          >
-            Rules
-          </h5>
-
           <div
             style={{
               float: "right",
@@ -64,7 +56,7 @@ class Rules extends Component {
             clear: "both"
           }}
         >
-          <br></br>
+          <h5>Rules</h5>
           <Table responsive hover size="sm">
             <thead>
               <tr>

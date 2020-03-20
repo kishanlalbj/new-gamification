@@ -1,0 +1,9 @@
+.team-members-list::-webkit-scrollbar {
+  display: none;
+}
+
+.team-members-list {
+  max-height: 50vh;
+
+  overflow-y: scroll;
+}

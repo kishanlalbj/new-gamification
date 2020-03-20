@@ -14,9 +14,6 @@ const SideNav = () => {
         <Link to="/rules">
           <Nav.Item className="navitems">Rules</Nav.Item>
         </Link>
-        <Link to="/metrics">
-          <Nav.Item className="navitems">Metrics</Nav.Item>
-        </Link>
       </Nav>
     </div>
   );
